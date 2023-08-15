@@ -1,0 +1,35 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("VERCEL_DATABASE_URL")
+}
+
+model Message {
+    id        String       @id @default(uuid()) @map("message_id")
+    content   String
+    tags      MessageTag[]
+    timestamp DateTime     @default(now())
+
+    @@map("messages")
+}
+
+model Tag {
+    id       String       @id @default(uuid()) @map("tag_id")
+    name     String       @unique
+    messages MessageTag[]
+
+    @@map("tags")
+}
+
+model MessageTag {
+    messageId String
+    tagId     String
+    message   Message @relation(fields: [messageId], references: [id])
+    tag       Tag     @relation(fields: [tagId], references: [id])
+
+    @@id([messageId, tagId])
+    @@map("message_tag")
+}

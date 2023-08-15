@@ -1,0 +1,22 @@
+{
+    "name": "itransition-chat",
+    "version": "1.0.0",
+    "description": "Messenger with tags",
+    "scripts": {
+        "prepare": "npx husky install",
+        "format": "prettier --write \"client/src/**/*.{ts,css,scss,html}\" \"server/src/**/*.ts\"",
+        "start:dev": "concurrently \"npm --prefix server run start:dev\" \"npm --prefix client run start:dev\""
+    },
+    "private": true,
+    "workspaces": [
+        "client",
+        "server"
+    ],
+    "devDependencies": {
+        "concurrently": "^8.2.0",
+        "husky": "^8.0.3",
+        "prettier": "3.0.1"
+    },
+    "author": "Stan <s2000promax@gmail.com>",
+    "license": "ISC"
+}
