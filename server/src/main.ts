@@ -15,7 +15,7 @@ async function bootstrap() {
             'Authorization',
             'Accept',
         ],
-        origin: ['https://itransition-6.netlify.app', 'http://localhost:4200'],
+        origin: [appConfig().prod_origin, appConfig().dev_origin],
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
         credentials: true,
     });
