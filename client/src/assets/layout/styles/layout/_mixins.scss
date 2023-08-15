@@ -1,0 +1,51 @@
+@mixin focused() {
+    outline: 0 none;
+    outline-offset: 0;
+    transition: box-shadow 0.2s;
+    box-shadow: var(--focus-ring);
+}
+
+@mixin focused-inset() {
+    outline: 0 none;
+    outline-offset: 0;
+    transition: box-shadow 0.2s;
+    box-shadow: inset var(--focus-ring);
+}
+
+@mixin input-eye-style {
+    :host ::ng-deep eyeicon,
+    :host ::ng-deep eyeslashicon {
+        transform: scale(1.6);
+        margin-right: 1rem;
+        color: var(--primary-color);
+    }
+}
+
+@mixin auth-gradient-container-style($auth_page) {
+    border-radius: 56px;
+    padding: 0.3rem;
+
+    @if $auth_page == 'access' {
+        background: linear-gradient(
+            180deg,
+            rgba(247, 149, 48, 0.4) 10%,
+            rgba(247, 149, 48, 0) 30%
+        );
+    } @else if $auth_page == 'error' {
+        background: linear-gradient(
+            180deg,
+            rgba(233, 30, 99, 0.4) 10%,
+            rgba(33, 150, 243, 0) 30%
+        );
+    } @else if $auth_page == '' {
+        background: linear-gradient(
+            180deg,
+            var(--primary-color) 10%,
+            rgba(33, 150, 243, 0) 30%
+        );
+    }
+
+    & > div {
+        border-radius: 53px;
+    }
+}

@@ -1,23 +1,46 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
-import { FooterModule } from '@shared/components/footer/footer.module';
-import { HttpClientModule } from '@angular/common/http';
-import { SocketIoModule } from 'ngx-socket-io';
+import {
+    HTTP_INTERCEPTORS,
+    HttpClient,
+    HttpClientModule,
+} from '@angular/common/http';
+import { AuthInterceptor } from '@config/http/interceptors/auth.interceptor';
+import { AppLayoutModule } from '@layout/app.layout.module';
+
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
 
 @NgModule({
     declarations: [AppComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        AppRoutingModule,
         HttpClientModule,
-        SocketIoModule.forRoot({
-            url: 'http://localhost:8002/game',
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+            defaultLanguage: 'en',
         }),
-        FooterModule,
+        AppLayoutModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

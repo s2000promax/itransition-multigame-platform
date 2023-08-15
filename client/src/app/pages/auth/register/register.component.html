@@ -1,0 +1,92 @@
+<div
+    class="surface-ground flex flex-column align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
+>
+    <mc-logo></mc-logo>
+    <div class="gradient-container">
+        <div class="surface-card py-5 px-5">
+            <div class="text-center mb-5">
+                <div class="text-900 text-3xl font-medium mb-3">
+                    {{ 'auth.register.welcome' | translate }}!
+                </div>
+                <div class="text-900 text-3xl font-medium mb-3">
+                    {{ 'auth.register.header' | translate }}?
+                </div>
+                <div class="text-600 font-medium">
+                    {{ 'auth.register.header_question' | translate }}
+                </div>
+                <div class="text-600 text-xs mt-2">
+                    {{ 'auth.register.subheader' | translate }}?
+                    <a
+                        class="text-xs"
+                        [routerLink]="[
+                            RoutesEnums.MAIN,
+                            RoutesEnums.AUTH,
+                            RoutesEnums.AUTH_LOGIN
+                        ]"
+                    >
+                        {{ 'auth.register.login' | translate }}
+                    </a>
+                </div>
+            </div>
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <span class="p-float-label mb-5">
+                    <input
+                        id="email"
+                        pInputText
+                        formControlName="email"
+                        type="email"
+                        class="w-full p-3 md:w-30rem"
+                    />
+                    <label for="email">{{
+                        'auth.register.email' | translate
+                    }}</label>
+                </span>
+
+                <span class="p-float-label mb-5">
+                    <input
+                        id="username"
+                        pInputText
+                        formControlName="username"
+                        type="text"
+                        class="w-full p-3 md:w-30rem"
+                    />
+                    <label for="username">{{
+                        'auth.register.username' | translate
+                    }}</label>
+                </span>
+
+                <span class="p-float-label mb-5">
+                    <p-password
+                        id="password"
+                        type="password"
+                        formControlName="password"
+                        [toggleMask]="true"
+                        [feedback]="false"
+                        styleClass="flex-row-reverse w-full"
+                        inputStyleClass="w-full p-3 md:w-30rem"
+                    ></p-password>
+                    <label for="password">{{
+                        'auth.register.password' | translate
+                    }}</label>
+                </span>
+
+                <div
+                    class="flex align-items-center justify-content-center mb-5 md:w-30rem"
+                    *ngIf="error"
+                >
+                    <span class="text-red-600 text-center">{{ error }}</span>
+                </div>
+
+                <button
+                    pButton
+                    pRipple
+                    type="submit"
+                    label="{{ 'auth.register.signup' | translate }}"
+                    class="w-full text-xl mb-3"
+                    [disabled]="registerForm.invalid || submitted"
+                ></button>
+            </form>
+        </div>
+    </div>
+</div>

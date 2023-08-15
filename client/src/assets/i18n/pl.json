@@ -1,0 +1,76 @@
+{
+    "app": {
+        "topbar": {
+            "logo": "Ośrodek gier",
+            "profile": "Profil",
+            "login": "Zalogować się",
+            "logout": "Wyloguj",
+            "settings": "Ustawienia"
+        },
+        "footer": {
+            "for": "Zaprojektowany dla",
+            "text": "Wszelkie prawa zastrzeżone.",
+            "link": "Więcej informacji"
+        },
+        "settings": {
+            "theme": "Schemat kolorów",
+            "language": "Język"
+        }
+    },
+    "settings": {
+        "language": {
+            "belorussian": "Białoruski",
+            "english": "Angielski",
+            "polish": "Polskie",
+            "georgian": "Gruziński"
+        }
+    },
+    "auth": {
+        "login": {
+            "welcome": "Powitanie",
+            "header": "Zaloguj się, aby kontynuować",
+            "subheader": "Potrzebujesz konta",
+            "register": "Rejestr",
+            "email": "Poczta elektroniczna",
+            "password": "Hasło",
+            "rememberme": "Zapamiętaj mnie",
+            "forgot": "Zapomniałeś hasła",
+            "signin": "Zalogować się"
+        },
+        "register": {
+            "welcome": "Powitanie",
+            "header": "Potrzebujesz konta",
+            "header_question": "Zarejestruj się, aby kontynuować",
+            "subheader": "Posiadasz już konto",
+            "login": "Zaloguj sie",
+            "email": "Poczta elektroniczna",
+            "username": "Pełne imię i nazwisko",
+            "password": "Hasło",
+            "signup": "Zapisać się"
+        },
+        "error": {
+            "header": "Wystąpił błąd",
+            "subheader": "Żądany zasób jest niedostępny",
+            "goto": "Przejdź do Panelu"
+        },
+        "access": {
+            "header": "Brak dostępu",
+            "subheader": "Nie masz niezbędnych uprawnień",
+            "offer": "Proszę o kontakt z Adminami",
+            "goto": "Przejdź do Panelu"
+        }
+    },
+    "users_management": {
+        "header": "Lista użytkowników"
+    },
+    "uikit": {
+        "controlled_table": {
+            "header_id": "ID",
+            "header_name": "Nazwa",
+            "header_email": "E-mail",
+            "header_register_at": "Data rejestracji",
+            "header_last_login_at": "Ostatnie logowanie",
+            "header_status": "Status"
+        }
+    }
+}

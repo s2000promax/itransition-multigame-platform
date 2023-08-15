@@ -1,0 +1,17 @@
+<div class="card">
+    <h1>GAME SERVER</h1>
+    <div>
+        <h3>Available Games</h3>
+        <div>
+            <button (click)="onServerConnect()">Connect</button>
+            <button (click)="onServerDisconnect()">Disconnect</button>
+        </div>
+        <div>
+            <button (click)="getGames()">getGames</button>
+        </div>
+        <ul *ngFor="let item of gamesList$ | async">
+            <li>{{ item }}</li>
+        </ul>
+    </div>
+    <button (click)="router.navigate([RoutesEnums.MAIN])">Leave Server</button>
+</div>
