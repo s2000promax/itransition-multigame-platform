@@ -7,6 +7,7 @@ export enum RoutesEnums {
     AUTH_ERROR = 'error',
     DASHBOARD = 'dashboard',
     GAME_SERVER = 'server',
+    TIC_TAC_TOE = 'tic-tac-toe',
     ERROR_404 = 'error404',
     ERROR_500 = 'error500',
     ERROR_REDIRECT = `/${ERROR_404}`,

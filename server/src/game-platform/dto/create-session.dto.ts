@@ -1,6 +1,6 @@
 import { GameTypesEnums } from '../../config/types/gameTypesEnums';
 
-export class CreateSessionDto {
+export interface CreateSessionDto {
     gameType: GameTypesEnums;
-    playersIds: string[];
+    ownerPlayerId: string;
 }

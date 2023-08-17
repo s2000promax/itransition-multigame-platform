@@ -1,17 +1,62 @@
 <div class="card">
     <h1>GAME SERVER</h1>
     <div>
+        <h2>{{ gamesResult | async }}</h2>
+    </div>
+    <div>
         <h3>Available Games</h3>
         <div>
             <button (click)="onServerConnect()">Connect</button>
             <button (click)="onServerDisconnect()">Disconnect</button>
         </div>
         <div>
+            <p>Test Message:</p>
+            <button (click)="onSendMessage()">send message</button>
+        </div>
+        <div>
+            <p></p>
+            <p></p>
+        </div>
+        <div>
             <button (click)="getGames()">getGames</button>
         </div>
         <ul *ngFor="let item of gamesList$ | async">
-            <li>{{ item }}</li>
+            <li>
+                <span>{{ item.gameName }}</span>
+                <button (click)="joinGame(item.sessionId)">Join</button>
+            </li>
         </ul>
+        <div>
+            <p></p>
+            <p></p>
+            <p></p>
+        </div>
+        <div>
+            <h5>Create the game:</h5>
+            <div style="margin: 10px">
+                <button (click)="createGame(GameTypesEnums.TIC_TAC_TOE)">
+                    Tic Tac Toe
+                </button>
+            </div>
+            <div style="margin: 10px">
+                <button (click)="createGame(GameTypesEnums.SEA_BATTLE)">
+                    Sea Battle
+                </button>
+            </div>
+            <div style="margin: 10px">
+                <button (click)="createGame(GameTypesEnums.POKER)">
+                    Poker
+                </button>
+            </div>
+        </div>
+        <div>
+            <h5>Tic-Tac-Toe Moves</h5>
+            <form [formGroup]="moveForm" (ngSubmit)="onMove()">
+                <input formControlName="row" />
+                <input formControlName="col" />
+                <button type="submit">Get Move</button>
+            </form>
+        </div>
     </div>
     <button (click)="router.navigate([RoutesEnums.MAIN])">Leave Server</button>
 </div>

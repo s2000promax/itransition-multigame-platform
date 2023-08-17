@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { GameGateway } from './webSocket/game.gateway';
-import { GameSessionService } from './services/game-session.service';
+import { GamePlatformGateway } from './gateway/game-platform.gateway';
+import { GameSessionService } from './sessions/game-session.service';
 
 @Module({
-    providers: [GameGateway, GameSessionService],
+    imports: [],
+    providers: [GamePlatformGateway, GameSessionService],
 })
 export class GamePlatformModule {}

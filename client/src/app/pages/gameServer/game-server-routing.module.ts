@@ -5,6 +5,13 @@ import { GameServerComponent } from '@pages/gameServer/component/game-server.com
 
 const routes: Routes = [
     { path: RoutesEnums.MAIN, component: GameServerComponent },
+    {
+        path: RoutesEnums.TIC_TAC_TOE,
+        loadChildren: () =>
+            import('@features/ticTacToe/ticTacToe.module').then(
+                (module) => module.TicTacToeModule,
+            ),
+    },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],
