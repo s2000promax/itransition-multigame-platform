@@ -1,0 +1,76 @@
+{
+    "app": {
+        "topbar": {
+            "logo": "თამაშის კერა",
+            "profile": "პროფილი",
+            "login": "ემოსვლა",
+            "logout": "გამოსვლა",
+            "settings": "პარამეტრები"
+        },
+        "footer": {
+            "for": "განკუთვნილია",
+            "text": "ველა უფლება დაცულია.",
+            "link": "ეტი ინფორმაცია"
+        },
+        "settings": {
+            "theme": "ფერის სქემა",
+            "language": "ინტერფეისის ენა"
+        }
+    },
+    "settings": {
+        "language": {
+            "belorussian": "ბელორუსული",
+            "english": "ინგლისური",
+            "polish": "პოლონური",
+            "georgian": "ქართული"
+        }
+    },
+    "auth": {
+        "login": {
+            "welcome": "მოგესალმებით",
+            "header": "გასაგრძელებლად შედით სისტემაში",
+            "subheader": "საჭიროა ანგარიში",
+            "register": "რეგისტრაცია",
+            "email": "ელფოსტა",
+            "password": "პაროლი",
+            "rememberme": "ამიმახსოვრე",
+            "forgot": "დაგავიწყდათ პაროლი",
+            "signin": "ემოსვლა"
+        },
+        "register": {
+            "welcome": "მოგესალმებით",
+            "header": "საჭიროა ანგარიში",
+            "header_question": "დარეგისტრირდით გასაგრძელებლად",
+            "subheader": "კვე გაქვთ ანგარიში",
+            "login": "ემოსვლა",
+            "email": "ელფოსტა",
+            "username": "რული სახელი",
+            "password": "პაროლი",
+            "signup": "რეგისტრაცია"
+        },
+        "error": {
+            "header": "მოხდა შეცდომა",
+            "subheader": "რესურსი რომელიც მოითხოვეთ, არ არის ხელმისაწვდომი",
+            "goto": "გადადით მთავარ გვერდზე"
+        },
+        "access": {
+            "header": "წვდომა აკრძალულია",
+            "subheader": "თქვენ არ გაქვთ საჭირო ნებართვები",
+            "offer": "გთხოვთ, დაუკავშირდეთ ადმინისტრატორებს",
+            "goto": "გადადით მთავარ გვერდზე"
+        }
+    },
+    "users_management": {
+        "header": "Users list"
+    },
+    "uikit": {
+        "controlled_table": {
+            "header_id": "ID",
+            "header_name": "სახელი",
+            "header_email": "ელფოსტა",
+            "header_register_at": "რეგისტრაციის თარიღი",
+            "header_last_login_at": "კანასკნელი შესვლა",
+            "header_status": "სტატუსი"
+        }
+    }
+}

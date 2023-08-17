@@ -1,0 +1,76 @@
+{
+    "app": {
+        "topbar": {
+            "logo": "Game hub",
+            "profile": "Profile",
+            "login": "Login",
+            "logout": "Logout",
+            "settings": "Settings"
+        },
+        "footer": {
+            "for": "Designed for",
+            "text": "All rights reserved.",
+            "link": "More information"
+        },
+        "settings": {
+            "theme": "Color scheme",
+            "language": "Language"
+        }
+    },
+    "settings": {
+        "language": {
+            "belorussian": "Belorussian",
+            "english": "English",
+            "polish": "Polish",
+            "georgian": "Georgian"
+        }
+    },
+    "auth": {
+        "login": {
+            "welcome": "Welcome",
+            "header": "Sign in to continue",
+            "subheader": "Need an account",
+            "register": "Register",
+            "email": "Email",
+            "password": "Password",
+            "rememberme": "Remember me",
+            "forgot": "Forgot password",
+            "signin": "Sign In"
+        },
+        "register": {
+            "welcome": "Welcome",
+            "header": "Need an account",
+            "header_question": "Sign up to continue",
+            "subheader": "Already have an account",
+            "login": "Login",
+            "email": "Email",
+            "username": "Full name",
+            "password": "Password",
+            "signup": "Sign Up"
+        },
+        "error": {
+            "header": "Error Occurred",
+            "subheader": "Requested resource is not available",
+            "goto": "Go to Dashboard"
+        },
+        "access": {
+            "header": "Access Denied",
+            "subheader": "You don't have the necessary permissions",
+            "offer": "Please contact Admins",
+            "goto": "Go to Dashboard"
+        }
+    },
+    "users_management": {
+        "header": "Users list"
+    },
+    "uikit": {
+        "controlled_table": {
+            "header_id": "ID",
+            "header_name": "Name",
+            "header_email": "E-mail",
+            "header_register_at": "Register date",
+            "header_last_login_at": "Last login",
+            "header_status": "Status"
+        }
+    }
+}

@@ -1,0 +1,96 @@
+<div
+    class="surface-ground flex flex-column align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden"
+>
+    <mc-logo></mc-logo>
+    <div class="gradient-container">
+        <div class="surface-card py-5 px-5">
+            <div class="text-center mb-5">
+                <div class="text-900 text-3xl font-medium mb-3">
+                    {{ 'auth.login.welcome' | translate }}!
+                </div>
+                <div class="text-600 font-medium">
+                    {{ 'auth.login.header' | translate }}
+                </div>
+                <div class="text-600 text-xs mt-2">
+                    {{ 'auth.login.subheader' | translate }}?
+                    <a
+                        class="text-xs"
+                        [routerLink]="[
+                            RoutesEnums.MAIN,
+                            RoutesEnums.AUTH,
+                            RoutesEnums.AUTH_REGISTER
+                        ]"
+                    >
+                        {{ 'auth.login.register' | translate }}
+                    </a>
+                </div>
+            </div>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <span class="p-float-label mb-5">
+                    <input
+                        id="email"
+                        pInputText
+                        formControlName="email"
+                        type="email"
+                        class="w-full p-3 md:w-30rem"
+                    />
+                    <label for="email">{{
+                        'auth.login.email' | translate
+                    }}</label>
+                </span>
+
+                <span class="p-float-label mb-5">
+                    <p-password
+                        id="password"
+                        type="password"
+                        formControlName="password"
+                        [toggleMask]="true"
+                        [feedback]="false"
+                        styleClass="flex-row-reverse w-full"
+                        inputStyleClass="w-full p-3 md:w-30rem"
+                    ></p-password>
+                    <label for="password">{{
+                        'auth.login.password' | translate
+                    }}</label>
+                </span>
+
+                <div
+                    class="flex align-items-center justify-content-between mb-5 gap-5"
+                >
+                    <div class="flex align-items-center">
+                        <p-checkbox
+                            id="rememberme"
+                            formControlName="isRememberMe"
+                            [binary]="true"
+                        ></p-checkbox>
+                        <label for="rememberme" class="ml-2">{{
+                            'auth.login.rememberme' | translate
+                        }}</label>
+                    </div>
+                    <a
+                        class="font-medium no-underline ml-2 text-right cursor-pointer"
+                    >
+                        {{ 'auth.login.forgot' | translate }}?
+                    </a>
+                </div>
+
+                <div
+                    class="flex align-items-center justify-content-center mb-5 md:w-30rem"
+                    *ngIf="error"
+                >
+                    <span class="text-red-600 text-center">{{ error }}</span>
+                </div>
+
+                <button
+                    pButton
+                    pRipple
+                    type="submit"
+                    label="{{ 'auth.login.signin' | translate }}"
+                    class="w-full text-xl mb-3"
+                    [disabled]="loginForm.invalid || submitted"
+                ></button>
+            </form>
+        </div>
+    </div>
+</div>

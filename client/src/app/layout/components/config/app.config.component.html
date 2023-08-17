@@ -1,0 +1,48 @@
+<p-sidebar
+    [(visible)]="visible"
+    position="right"
+    [transitionOptions]="'.3s cubic-bezier(0, 0, 0.2, 1)'"
+    styleClass="layout-config-sidebar w-20rem"
+>
+    <div class="mt-4">
+        <h5>{{ 'app.settings.language' | translate }}</h5>
+        <div class="grid">
+            <div class="col-3" *ngFor="let languageItem of languageItems">
+                <button
+                    class="p-link w-2rem h-2rem"
+                    (click)="changeLanguage(languageItem.language)"
+                >
+                    <img
+                        src="assets/layout/images/languages/{{
+                            languageItem.src
+                        }}"
+                        class="w-2rem h-2rem"
+                        alt="{{ languageItem.src }}"
+                    />
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4">
+        <h5>{{ 'app.settings.theme' | translate }}</h5>
+        <div class="grid">
+            <div class="col-3" *ngFor="let themesItem of themesItems">
+                <button
+                    class="p-link w-2rem h-2rem"
+                    (click)="
+                        changeTheme(
+                            themesItem.themeStyle,
+                            themesItem.colorStyle
+                        )
+                    "
+                >
+                    <img
+                        src="assets/layout/images/themes/{{ themesItem.src }}"
+                        class="w-2rem h-2rem"
+                        alt="{{ themesItem.src }}"
+                    />
+                </button>
+            </div>
+        </div>
+    </div>
+</p-sidebar>
