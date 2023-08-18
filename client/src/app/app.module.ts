@@ -10,7 +10,6 @@ import {
     HttpClient,
     HttpClientModule,
 } from '@angular/common/http';
-import { AuthInterceptor } from '@config/http/interceptors/auth.interceptor';
 import { AppLayoutModule } from '@layout/app.layout.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -34,13 +33,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         }),
         AppLayoutModule,
     ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true,
-        },
-    ],
+    providers: [],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

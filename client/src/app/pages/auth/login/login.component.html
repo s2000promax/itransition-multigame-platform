@@ -11,47 +11,19 @@
                 <div class="text-600 font-medium">
                     {{ 'auth.login.header' | translate }}
                 </div>
-                <div class="text-600 text-xs mt-2">
-                    {{ 'auth.login.subheader' | translate }}?
-                    <a
-                        class="text-xs"
-                        [routerLink]="[
-                            RoutesEnums.MAIN,
-                            RoutesEnums.AUTH,
-                            RoutesEnums.AUTH_REGISTER
-                        ]"
-                    >
-                        {{ 'auth.login.register' | translate }}
-                    </a>
-                </div>
             </div>
 
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <span class="p-float-label mb-5">
                     <input
-                        id="email"
+                        id="username"
                         pInputText
-                        formControlName="email"
-                        type="email"
+                        formControlName="username"
+                        type="text"
                         class="w-full p-3 md:w-30rem"
                     />
-                    <label for="email">{{
-                        'auth.login.email' | translate
-                    }}</label>
-                </span>
-
-                <span class="p-float-label mb-5">
-                    <p-password
-                        id="password"
-                        type="password"
-                        formControlName="password"
-                        [toggleMask]="true"
-                        [feedback]="false"
-                        styleClass="flex-row-reverse w-full"
-                        inputStyleClass="w-full p-3 md:w-30rem"
-                    ></p-password>
-                    <label for="password">{{
-                        'auth.login.password' | translate
+                    <label for="username">{{
+                        'auth.login.username' | translate
                     }}</label>
                 </span>
 
@@ -68,18 +40,6 @@
                             'auth.login.rememberme' | translate
                         }}</label>
                     </div>
-                    <a
-                        class="font-medium no-underline ml-2 text-right cursor-pointer"
-                    >
-                        {{ 'auth.login.forgot' | translate }}?
-                    </a>
-                </div>
-
-                <div
-                    class="flex align-items-center justify-content-center mb-5 md:w-30rem"
-                    *ngIf="error"
-                >
-                    <span class="text-red-600 text-center">{{ error }}</span>
                 </div>
 
                 <button

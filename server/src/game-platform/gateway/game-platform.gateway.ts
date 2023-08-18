@@ -23,7 +23,7 @@ export interface SessionPayload {
 }
 
 @WebSocketGateway({
-    namespace: '/game-platform',
+    namespace: 'game-platform',
     cors: {
         origin: '*',
         credentials: true,
@@ -36,29 +36,30 @@ export class GamePlatformGateway
 
     constructor(private gameSessionService: GameSessionService) {}
 
-    handleConnection(client: Socket) {
+    async handleConnection(client: Socket) {
         console.log('#Connect', client.id);
     }
 
-    handleDisconnect(client: Socket) {
+    async handleDisconnect(client: Socket) {
         console.log('#Disconnect:', client.id);
+        client.disconnect();
     }
 
     @SubscribeMessage('message')
-    handleMessage(client: Socket, payload: any) {
+    async handleMessage(client: Socket, payload: any) {
         console.log('#M:', client.id, payload);
 
         client.emit('message', 'Hello world!');
     }
 
     @SubscribeMessage('getGames')
-    handleGetGames(client: Socket): void {
+    async handleGetGames(client: Socket) {
         const gamesListResponse = this.gameSessionService.getGames();
         client.emit('gameList', gamesListResponse);
     }
 
     @SubscribeMessage('createSession')
-    createSession(client: Socket, gameType: GameTypesEnums): void {
+    async createSession(client: Socket, gameType: GameTypesEnums) {
         const sessionId = this.gameSessionService.createSession({
             gameType,
             ownerPlayerId: client.id,
@@ -67,14 +68,23 @@ export class GamePlatformGateway
     }
 
     @SubscribeMessage('joinSession')
-    joinSession(client: Socket, sessionId: string): void {
+    async joinSession(client: Socket, sessionId: string) {
         this.gameSessionService.joinSession(sessionId, client.id);
         client.emit('JoinedSession', 'success');
-        console.log('#->', this.server);
+
+        const connections =
+            this.gameSessionService.findSession(sessionId).playersIds;
+
+        for (const connection of connections) {
+            this.server
+                .to(connection)
+                .emit('gameStatus', 'Game has been started');
+            console.log('#Emit-to:', connection);
+        }
     }
 
     @SubscribeMessage('makeMove')
-    makeMove(client: Socket, { row, col, sessionId }: MoveDto): void {
+    async makeMove(client: Socket, { row, col, sessionId }: MoveDto) {
         console.log(row, col, sessionId);
         const session = this.gameSessionService.findSession(sessionId);
         // console.log(this.server.sockets.sockets.get(session.ownerPlayerId[0]).emit());
@@ -89,14 +99,12 @@ export class GamePlatformGateway
             );
 
             if (result.status === 'winner') {
-                // const winnerSocket = this.server.sockets.sockets.get(session.playersIds.find(id => id === result.winner));
-                // const loserSocket = this.server.sockets.sockets.get(session.playersIds.find(id => id !== result.winner));
-                const winnerSocket = this.server.sockets.sockets.get(
-                    session.ownerPlayerId[0],
-                );
-                const loserSocket = this.server.sockets.sockets.get(
-                    session.ownerPlayerId[1],
-                );
+                const connections =
+                    this.gameSessionService.findSession(sessionId).playersIds;
+
+                const winnerSocket = this.server.to(connections[0]);
+                const loserSocket = this.server.to(connections[1]);
+
                 winnerSocket.emit('gameResult', { status: 'win' });
                 loserSocket.emit('gameResult', { status: 'lose' });
             }

@@ -4,7 +4,6 @@ import { RoutesEnums } from '@config/routes/routesEnums';
 import { GameServerSocket } from '@config/http/sockets/game-server.socket';
 import { BehaviorSubject, Subscription, tap } from 'rxjs';
 import { GameTypesEnums } from '@config/types/game/gameTypesEnums';
-import { LoginRequest } from '@config/types/auth/credentails.type';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Form } from '@shared/types/forms/form.interface';
 
@@ -47,12 +46,14 @@ export class GameServerComponent implements OnInit, OnDestroy {
     messageSubscription!: Subscription;
     gamesListSubscription!: Subscription;
     gamesResultSubscription!: Subscription;
+    gamesStatusSubscription!: Subscription;
     sessionCreatedSubscription!: Subscription;
 
     gamesList$ = new BehaviorSubject<GameModelResponse[]>([]);
 
     sessionId!: string;
     gamesResult = new BehaviorSubject<string>('Await result');
+    gamesStatus = new BehaviorSubject<string>('Not started');
 
     constructor(
         public router: Router,
@@ -91,6 +92,13 @@ export class GameServerComponent implements OnInit, OnDestroy {
             .fromEvent<GameResult>('gameResult')
             .subscribe((response) => {
                 this.gamesResult.next(response.status);
+            });
+
+        this.gamesStatusSubscription = this.socket
+            .fromEvent<string>('gameStatus')
+            .subscribe((response) => {
+                this.gamesStatus.next(response);
+                console.log('Game Status', response);
             });
 
         this.sessionCreatedSubscription = this.socket

@@ -30,34 +30,9 @@
             "welcome": "Powitanie",
             "header": "Zaloguj się, aby kontynuować",
             "subheader": "Potrzebujesz konta",
-            "register": "Rejestr",
-            "email": "Poczta elektroniczna",
-            "password": "Hasło",
+            "username": "Wpisz swoje imię",
             "rememberme": "Zapamiętaj mnie",
-            "forgot": "Zapomniałeś hasła",
             "signin": "Zalogować się"
-        },
-        "register": {
-            "welcome": "Powitanie",
-            "header": "Potrzebujesz konta",
-            "header_question": "Zarejestruj się, aby kontynuować",
-            "subheader": "Posiadasz już konto",
-            "login": "Zaloguj sie",
-            "email": "Poczta elektroniczna",
-            "username": "Pełne imię i nazwisko",
-            "password": "Hasło",
-            "signup": "Zapisać się"
-        },
-        "error": {
-            "header": "Wystąpił błąd",
-            "subheader": "Żądany zasób jest niedostępny",
-            "goto": "Przejdź do Panelu"
-        },
-        "access": {
-            "header": "Brak dostępu",
-            "subheader": "Nie masz niezbędnych uprawnień",
-            "offer": "Proszę o kontakt z Adminami",
-            "goto": "Przejdź do Panelu"
         }
     },
     "users_management": {

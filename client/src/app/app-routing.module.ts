@@ -10,9 +10,11 @@ const routes: Routes = [
         component: AppLayoutComponent,
         children: [
             {
-                path: RoutesEnums.MAIN,
-                redirectTo: RoutesEnums.DASHBOARD,
-                pathMatch: 'full',
+                path: RoutesEnums.AUTH_LOGIN,
+                loadChildren: () =>
+                    import('@pages/auth/login/login.module').then(
+                        (module) => module.LoginModule,
+                    ),
             },
             {
                 path: RoutesEnums.DASHBOARD,
@@ -29,13 +31,6 @@ const routes: Routes = [
                     ),
             },
         ],
-    },
-    {
-        path: RoutesEnums.AUTH,
-        loadChildren: () =>
-            import('@pages/auth/auth.module').then(
-                (module) => module.AuthModule,
-            ),
     },
     { path: RoutesEnums.ERROR_404, component: Error404Component },
     { path: '**', redirectTo: RoutesEnums.ERROR_REDIRECT },
