@@ -5,6 +5,8 @@ import { filter, Subscription } from 'rxjs';
 import { LayoutService } from '@services/app.layout.service';
 import { AppTopBarComponent } from '@layout/components/topbar/app.topbar.component';
 import { ColorStyles } from '@config/styles/colorStyles';
+import { AuthService } from '@services/auth.service';
+import { RoutesEnums } from '@config/routes/routesEnums';
 
 type ProfileMenuListener = () => void;
 
@@ -24,6 +26,7 @@ export class AppLayoutComponent {
         public layoutService: LayoutService,
         public renderer: Renderer2,
         public router: Router,
+        private auth: AuthService,
     ) {
         this.overlayMenuOpenSubscription =
             this.layoutService.overlayOpen$.subscribe(() => {
@@ -60,6 +63,10 @@ export class AppLayoutComponent {
             .subscribe(() => {
                 this.hideSidebarMenu();
             });
+
+        // this.auth.isAuthenticated()
+        //     ? (this.router.navigate([RoutesEnums.DASHBOARD]))
+        //     : (this.router.navigate([RoutesEnums.AUTH_LOGIN]));
     }
 
     hideSidebarMenu(): void {

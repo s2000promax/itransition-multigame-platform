@@ -1,0 +1,8 @@
+.game-table {
+    min-width: 50rem;
+
+    & th,
+    & td {
+        text-align: center;
+    }
+}

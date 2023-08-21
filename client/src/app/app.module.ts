@@ -10,8 +10,8 @@ import {
     HttpClient,
     HttpClientModule,
 } from '@angular/common/http';
-import { AuthInterceptor } from '@config/http/interceptors/auth.interceptor';
 import { AppLayoutModule } from '@layout/app.layout.module';
+import { GameServerSocket } from '@config/http/sockets/game-server.socket';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -34,13 +34,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         }),
         AppLayoutModule,
     ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true,
-        },
-    ],
+    providers: [GameServerSocket],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

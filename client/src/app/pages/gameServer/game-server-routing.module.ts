@@ -12,6 +12,20 @@ const routes: Routes = [
                 (module) => module.TicTacToeModule,
             ),
     },
+    {
+        path: RoutesEnums.SEA_BATTLE,
+        loadChildren: () =>
+            import('@features/seaBattle/seaBattle.module').then(
+                (module) => module.SeaBattleModule,
+            ),
+    },
+    {
+        path: RoutesEnums.POKER,
+        loadChildren: () =>
+            import('@features/poker/poker.module').then(
+                (module) => module.PokerModule,
+            ),
+    },
 ];
 @NgModule({
     imports: [RouterModule.forChild(routes)],

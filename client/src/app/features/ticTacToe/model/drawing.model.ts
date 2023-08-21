@@ -9,7 +9,7 @@ export class DrawingModel {
 
     cross() {
         const line = new Graphics();
-        line.lineStyle(6, 0xff0000);
+        line.lineStyle(5, 0xff0000);
 
         line.moveTo(10, 10);
         line.lineTo(40, 40);
@@ -22,8 +22,8 @@ export class DrawingModel {
 
     toe() {
         const ellipse = new Graphics();
-        ellipse.lineStyle(4, 0xff0000);
-        ellipse.drawEllipse(25, 25, 10, 16);
+        ellipse.lineStyle(5, 0xff0000);
+        ellipse.drawEllipse(25, 25, 12, 16);
         return ellipse;
     }
 }

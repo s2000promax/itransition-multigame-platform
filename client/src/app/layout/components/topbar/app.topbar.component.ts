@@ -35,11 +35,10 @@ export class AppTopBarComponent {
     }
 
     onLogin() {
-        return this.router.navigate([RoutesEnums.AUTH, RoutesEnums.AUTH_LOGIN]);
+        return this.router.navigate([RoutesEnums.AUTH_LOGIN]);
     }
 
     onLogout() {
-        this.authService.logout().subscribe();
-        return this.router.navigate([RoutesEnums.AUTH, RoutesEnums.AUTH_LOGIN]);
+        return this.authService.logout();
     }
 }
