@@ -1,25 +1,16 @@
+import { Player } from '../../game-platform/types/game-platform.type';
+
 export class PokerGame {
     private players: { id: string; hand: string[] }[];
     private deck: string[];
     private communityCards: string[];
     private pot: number;
 
-    constructor(playersIds: string[]) {
-        this.players = playersIds.map((id) => ({ id, hand: [] }));
-        this.deck = this.generateDeck();
-        this.communityCards = [];
-        this.pot = 0;
-    }
+    constructor(players: Player[]) {}
 
-    private generateDeck(): string[] {
-        return [];
-    }
+    startGame() {}
 
-    dealHands(): void {}
+    makeMove() {}
 
-    makeBet(playerId: string, amount: number): void {}
-
-    getGameState() {
-        return 'win';
-    }
+    private checkWin() {}
 }

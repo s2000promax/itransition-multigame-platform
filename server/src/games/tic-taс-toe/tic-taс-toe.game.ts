@@ -1,43 +1,144 @@
+import {
+    GameState,
+    Player,
+    Symbols,
+} from '../../game-platform/types/game-platform.type';
+
 export class TicTacToeGame {
-    private board: (string | null)[][] = Array(3)
+    private board: (Symbols | null)[][] = Array(3)
         .fill(null)
         .map(() => Array(3).fill(null));
-    private currentPlayer: string;
+    private players: Player[];
+    private currentPlayer: Player;
 
-    constructor(private playersIds: string[]) {
-        this.currentPlayer = playersIds[0];
+    constructor(players: Player[]) {
+        const symbols = this.getSymbols;
+        this.players = players.map((player, index) => ({
+            ...player,
+            played: symbols[index],
+        }));
+        const randomIndex = Math.floor(Math.random() * this.players.length);
+        this.currentPlayer = this.players[randomIndex];
     }
 
-    makeMove(row: number, col: number) {
-        if (
-            this.board[row][col] != null ||
-            row < 0 ||
-            row > 2 ||
-            col < 0 ||
-            col > 2
-        ) {
-            return { status: 'invalid-move' };
-        }
+    startGame(): GameState {
+        const availableMoves: boolean[][] = Array(3)
+            .fill(true)
+            .map(() => Array(3).fill(true));
+        const gameState: GameState = {
+            status: 'playing',
+            players: this.players,
+            currentPlayer: this.currentPlayer,
+            availableMoves,
+        };
 
-        this.board[row][col] = this.currentPlayer;
+        return gameState;
+    }
 
-        // Проверка победителя
-        if (this.checkWin()) {
-            return { status: 'winner', winner: this.currentPlayer };
-        }
+    makeMove(row: number, col: number): GameState {
+        this.board[row][col] = this.currentPlayer.played;
+        const availableMoves = this.getAvailableMoves(this.board);
 
-        // Переключение игрока
         this.currentPlayer =
-            this.playersIds.find((id) => id !== this.currentPlayer) ||
-            this.playersIds[0];
+            this.players.find((player) => player !== this.currentPlayer) ||
+            this.players[0];
 
-        return { status: 'continue' };
+        if (this.checkWin()) {
+            return {
+                status: this.checkWin() === 'draw' ? 'draw' : 'win',
+                players: this.players,
+                currentPlayer: this.currentPlayer,
+                availableMoves: availableMoves,
+                rivalMove: {
+                    row,
+                    col,
+                },
+            };
+        }
+
+        return {
+            status: 'playing',
+            players: this.players,
+            currentPlayer: this.currentPlayer,
+            availableMoves: availableMoves,
+            rivalMove: {
+                row,
+                col,
+            },
+        };
     }
 
-    private checkWin(): boolean {
-        if (this.board[0][0] && this.board[0][1] && this.board[0][2]) {
-            return true;
+    private getAvailableMoves(board: (Symbols | null)[][]): boolean[][] {
+        return board.map((row) => row.map((cell) => cell == null));
+    }
+
+    private checkWin(): 'draw' | boolean {
+        const lines = [
+            [
+                [0, 0],
+                [0, 1],
+                [0, 2],
+            ],
+            [
+                [1, 0],
+                [1, 1],
+                [1, 2],
+            ],
+            [
+                [2, 0],
+                [2, 1],
+                [2, 2],
+            ],
+            [
+                [0, 0],
+                [1, 0],
+                [2, 0],
+            ],
+            [
+                [0, 1],
+                [1, 1],
+                [2, 1],
+            ],
+            [
+                [0, 2],
+                [1, 2],
+                [2, 2],
+            ],
+            [
+                [0, 0],
+                [1, 1],
+                [2, 2],
+            ],
+            [
+                [0, 2],
+                [1, 1],
+                [2, 0],
+            ],
+        ];
+
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (
+                this.board[a[0]][a[1]] !== null &&
+                this.board[a[0]][a[1]] === this.board[b[0]][b[1]] &&
+                this.board[a[0]][a[1]] === this.board[c[0]][c[1]]
+            ) {
+                return true;
+            }
         }
+
+        if (this.board.every((row) => row.every((cell) => cell !== null))) {
+            return 'draw';
+        }
+
         return false;
+    }
+
+    private get getSymbols() {
+        const symbols: Symbols[] = ['cross', 'toe'];
+        if (Math.random() < 0.5) {
+            return symbols.reverse();
+        }
+        return symbols;
     }
 }

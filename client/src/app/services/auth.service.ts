@@ -10,7 +10,7 @@ import { UserInterface } from '@config/types/user/user.interface';
     providedIn: 'root',
 })
 export class AuthService {
-    private username = new BehaviorSubject<string | null>(null);
+    private username = new BehaviorSubject<string>('');
 
     constructor(
         private router: Router,
@@ -34,12 +34,12 @@ export class AuthService {
     }
 
     removeCredentials(): void {
-        this.username.next(null);
+        this.username.next('');
         this.persistenceService.removeKey(LocalStorageEnums.USER_NAME);
         this.persistenceService.removeKey(LocalStorageEnums.APP_CONFIG);
     }
 
-    get getUsername(): string | null {
+    get getUsername(): string {
         return this.username.value;
     }
 
@@ -49,6 +49,6 @@ export class AuthService {
     }
 
     isAuthenticated(): boolean {
-        return !!this.username;
+        return !!this.username.value;
     }
 }

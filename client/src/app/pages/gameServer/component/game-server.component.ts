@@ -1,36 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoutesEnums } from '@config/routes/routesEnums';
-import { GameServerSocket } from '@config/http/sockets/game-server.socket';
-import { BehaviorSubject, Subscription, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { GameTypesEnums } from '@config/types/game/gameTypesEnums';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Form } from '@shared/types/forms/form.interface';
-
-interface MoveForm {
-    row: string;
-    col: string;
-}
-
-export interface GameResult {
-    status: string;
-}
-
-export interface GameModelResponse {
-    sessionId: string;
-    ownerPlayerId: string;
-    gameName: GameTypesEnums;
-}
-
-export interface GamesListResponse {
-    availableGames: GameTypesEnums[];
-    waitingGames: GameModelResponse[];
-}
-
-export interface GameList {
-    id: string;
-    gameName: string;
-}
+import { GameServerService } from '../services/game-server.service';
+import { GameModelResponse } from '../types/game-server.type';
 
 @Component({
     selector: 'mc-game-server',
@@ -38,113 +12,41 @@ export interface GameList {
     styleUrls: ['./game-server.component.scss'],
 })
 export class GameServerComponent implements OnInit, OnDestroy {
-    protected readonly RoutesEnums = RoutesEnums;
-    protected readonly GameTypesEnums = GameTypesEnums;
-
-    moveForm!: FormGroup<Form<MoveForm>>;
-
-    messageSubscription!: Subscription;
-    gamesListSubscription!: Subscription;
-    gamesResultSubscription!: Subscription;
-    gamesStatusSubscription!: Subscription;
-    sessionCreatedSubscription!: Subscription;
-
-    gamesList$ = new BehaviorSubject<GameModelResponse[]>([]);
-
-    sessionId!: string;
-    gamesResult = new BehaviorSubject<string>('Await result');
-    gamesStatus = new BehaviorSubject<string>('Not started');
+    availableGamesList$!: Observable<GameTypesEnums[]>;
+    waitingGamesList$!: Observable<GameModelResponse[]>;
 
     constructor(
         public router: Router,
-        private socket: GameServerSocket,
-        private formBuilder: FormBuilder,
+        private gameServerService: GameServerService,
     ) {}
 
     ngOnInit() {
-        this.moveForm = this.formBuilder.nonNullable.group({
-            row: [''],
-            col: [''],
-        });
+        this.gameServerService.onServerConnect();
+
+        this.availableGamesList$ = this.gameServerService.availableGamesList$;
+        this.waitingGamesList$ = this.gameServerService.waitingGamesList$;
     }
 
-    onServerConnect() {
-        this.socket.connect();
-
-        this.messageSubscription = this.socket
-            .fromEvent<string>('message')
-            .subscribe({
-                next: (response: string) => {
-                    console.log('$FromServer:', response);
-                },
-            });
-
-        this.gamesListSubscription = this.socket
-            .fromEvent<GamesListResponse>('gameList')
-            .subscribe((gameList: GamesListResponse) => {
-                const forJoin = gameList.waitingGames;
-
-                this.gamesList$.next(forJoin);
-                console.log('$FromServer:', gameList);
-            });
-
-        this.gamesResultSubscription = this.socket
-            .fromEvent<GameResult>('gameResult')
-            .subscribe((response) => {
-                this.gamesResult.next(response.status);
-            });
-
-        this.gamesStatusSubscription = this.socket
-            .fromEvent<string>('gameStatus')
-            .subscribe((response) => {
-                this.gamesStatus.next(response);
-                console.log('Game Status', response);
-            });
-
-        this.sessionCreatedSubscription = this.socket
-            .fromEvent<string>('sessionCreated')
-            .subscribe((response) => {
-                this.sessionId = response;
-                console.log('SessionId', response);
-            });
+    onCreateGame(gameType: GameTypesEnums) {
+        this.gameServerService.onCreateSession(gameType);
+        return this.router.navigate([
+            RoutesEnums.GAME_SERVER,
+            RoutesEnums.TIC_TAC_TOE,
+        ]);
     }
 
-    onServerDisconnect() {
-        this.socket.disconnect();
-        if (this.messageSubscription) {
-            this.messageSubscription.unsubscribe();
-        }
-
-        if (this.gamesListSubscription) {
-            this.gamesListSubscription.unsubscribe();
-        }
+    onJoinGame(sessionId: string) {
+        this.gameServerService.onJoinSession(sessionId);
+        return this.router.navigate([
+            RoutesEnums.GAME_SERVER,
+            RoutesEnums.TIC_TAC_TOE,
+        ]);
     }
 
-    onSendMessage() {
-        console.log('#');
-        this.socket.emit('message', 'test from Angular');
+    onLeaveServer() {
+        this.gameServerService.onServerDisconnect();
+        return this.router.navigate([RoutesEnums.DASHBOARD]);
     }
 
-    getGames() {
-        this.socket.emit('getGames');
-    }
-
-    createGame(gameType: string) {
-        this.socket.emit('createSession', gameType);
-    }
-
-    joinGame(sessionId: string) {
-        this.sessionId = sessionId;
-        this.socket.emit('joinSession', sessionId);
-    }
-
-    onMove() {
-        const { row, col } = this.moveForm.getRawValue();
-        console.log(row, col, this.sessionId);
-        this.socket.emit('makeMove', { row, col, sessionId: this.sessionId });
-    }
-
-    ngOnDestroy() {
-        this.onServerDisconnect();
-    }
+    ngOnDestroy() {}
 }

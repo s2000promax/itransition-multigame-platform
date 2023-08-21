@@ -5,7 +5,6 @@ import { RoutesEnums } from '@config/routes/routesEnums';
 @Component({
     selector: 'mc-dashboard',
     templateUrl: './dashboard.component.html',
-    styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
     constructor(private router: Router) {}
