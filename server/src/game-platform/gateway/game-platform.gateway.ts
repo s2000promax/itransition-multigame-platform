@@ -18,7 +18,7 @@ import {
     namespace: 'game-platform',
     cors: {
         origin: ['https://itransition-7.netlify.app', 'http://localhost:4200'],
-        credentials: false,
+        credentials: true,
         allowedHeaders: [
             '*',
             'Access-Control-Allow-Origin',
