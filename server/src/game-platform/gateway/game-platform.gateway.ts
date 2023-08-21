@@ -23,6 +23,7 @@ import {
             'Access-Control-Allow-Origin',
             'Access-Control-Allow-Credentials',
         ],
+        methods: ['GET', 'POST', 'OPTIONS'],
     },
 })
 export class GamePlatformGateway
