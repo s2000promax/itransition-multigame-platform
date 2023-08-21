@@ -17,7 +17,7 @@ import {
 @WebSocketGateway({
     namespace: 'game-platform',
     cors: {
-        origin: '*',
+        origin: ['https://itransition-7.netlify.app', 'http://localhost:4200'],
         credentials: true,
     },
 })
