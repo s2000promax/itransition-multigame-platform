@@ -20,11 +20,10 @@ import {
         origin: ['https://itransition-7.netlify.app', 'http://localhost:4200'],
         credentials: true,
         allowedHeaders: [
-            '*',
             'Access-Control-Allow-Origin',
             'Access-Control-Allow-Credentials',
         ],
-        methods: ['GET', 'POST', 'OPTIONS', '*'],
+        methods: ['GET', 'POST', 'OPTIONS'],
     },
 })
 export class GamePlatformGateway

@@ -9,8 +9,11 @@ export class GameServerSocket extends Socket {
             url: environment.gameServerSocketUrl,
             options: {
                 autoConnect: false,
-                withCredentials: false,
-                enablesXDR: false,
+                withCredentials: true,
+                extraHeaders: {
+                    'Access-Control-Allow-Origin':
+                        'https://itransition-mgame-server.vercel.app',
+                },
             },
         });
     }
