@@ -15,8 +15,11 @@ export interface GamesListResponse {
 }
 
 export type Symbols = 'cross' | 'toe';
+export type BoardT = ('S' | 'H' | 'M' | '~')[][];
+
 export type SessionStatus = 'waiting' | 'in-progress' | 'finished';
 export type GameStatus = 'playing' | 'win' | 'lose' | 'draw';
+
 export type Move = {
     row: number;
     col: number;
@@ -25,7 +28,13 @@ export type Move = {
 export interface Player {
     id: string;
     username: string;
+    rivalName?: string;
     played?: Symbols;
+    board?: BoardT;
+    movesMyBoardPlayer?: BoardT;
+    movesRivalBoardPlayer?: BoardT;
+    availableMoves?: boolean[][];
+    score?: number;
 }
 
 export interface GameSession {
@@ -41,8 +50,8 @@ export interface GameState {
     status: GameStatus;
     players: Player[];
     currentPlayer: Player;
-    availableMoves: boolean[][];
     rivalMove?: Move;
+    availableMoves?: boolean[][];
 }
 
 export interface CreateSessionRequest {

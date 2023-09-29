@@ -22,6 +22,7 @@ export class TicTacToeGame {
     }
 
     startGame(): GameState {
+        console.log("Tic-Tac START!!!")
         const availableMoves: boolean[][] = Array(3)
             .fill(true)
             .map(() => Array(3).fill(true));
