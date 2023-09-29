@@ -22,6 +22,7 @@ import appConfig from '../../config/app/appConfig';
     cors: {
         origin: 'https://itransition-7.netlify.app',
         credentials: true,
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
     },
 })
 export class GamePlatformGateway
