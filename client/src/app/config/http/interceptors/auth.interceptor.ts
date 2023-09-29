@@ -38,15 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         this.loaderService.setLoadingState(true);
 
-        request = request.clone({
-            setHeaders: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                'Access-Control-Allow-Origin':
-                    'https://main--celadon-faun-1beac6.netlify.app/game-platform',
-                'Access-Control-Allow-Credentials': 'true',
-            },
-        });
+        request = request.clone({});
 
         return next.handle(request);
     }
