@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://itransition-socket-6c6ca716e5f2.herokuapp.com/api',
+    apiUrl: 'https://main--celadon-faun-1beac6.netlify.app/api',
     gameServerSocketUrl:
-        'https://itransition-socket-6c6ca716e5f2.herokuapp.com/game-platform',
+        'https://main--celadon-faun-1beac6.netlify.app/game-platform',
 };
