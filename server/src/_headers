@@ -1,2 +1,2 @@
 /*
-  Access-Control-Allow-Origin: https://itransition-7.netlify.app
+  Access-Control-Allow-Origin: *
