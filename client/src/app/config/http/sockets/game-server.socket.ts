@@ -9,7 +9,7 @@ export class GameServerSocket extends Socket {
             url: environment.gameServerSocketUrl,
             options: {
                 autoConnect: false,
-                withCredentials: true,
+                withCredentials: false,
                 extraHeaders: {
                     'Access-Control-Allow-Origin':
                         'https://main--celadon-faun-1beac6.netlify.app/game-platform',
