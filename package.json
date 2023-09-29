@@ -1,11 +1,12 @@
 {
-    "name": "itransition-chat",
+    "name": "Multiplayer gaming platform",
     "version": "1.0.0",
     "description": "Multiplayer gaming platform",
     "scripts": {
         "prepare": "npx husky install",
         "format": "prettier --write \"client/src/**/*.{ts,css,scss,html}\" \"server/src/**/*.ts\"",
-        "start:dev": "concurrently \"npm --prefix server run start:dev\" \"npm --prefix client run start:dev\""
+        "start:dev": "concurrently \"npm --prefix server run start:dev\" \"npm --prefix client run start:dev\"",
+        "start": "npm --prefix server run start:dev"
     },
     "private": true,
     "workspaces": [
