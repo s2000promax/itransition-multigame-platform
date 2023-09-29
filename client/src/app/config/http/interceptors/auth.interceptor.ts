@@ -43,7 +43,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
                 'Access-Control-Allow-Origin':
-                    'https://main--celadon-faun-1beac6.netlify.app',
+                    'https://main--celadon-faun-1beac6.netlify.app/game-platform',
                 'Access-Control-Allow-Credentials': 'true',
             },
         });
