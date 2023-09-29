@@ -21,7 +21,7 @@ import appConfig from '../../config/app/appConfig';
     namespace: 'game-platform',
     cors: {
         origin: 'https://itransition-7.netlify.app',
-        credentials: true,
+        credentials: false,
         methods: ['GET', 'OPTIONS'],
         allowedHeaders: ['Access-Control-Allow-Origin'],
     },
