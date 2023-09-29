@@ -13,11 +13,14 @@ import {
     CreateSessionRequest,
     JoinSessionRequest,
 } from '../types/game-platform.type';
+import { SeaBattleGame } from '../../games/sea-batle/sea-batle.game';
+import { PokerGame } from '../../games/poker/poker.game';
+import appConfig from '../../config/app/appConfig';
 
 @WebSocketGateway({
     namespace: 'game-platform',
     cors: {
-        origin: '*',
+        origin: [appConfig().prod_origin, appConfig().dev_origin],
         credentials: true,
     },
 })
@@ -108,6 +111,39 @@ export class GamePlatformGateway
                 }
             }
         }
+
+        if (session.gameInstance instanceof SeaBattleGame) {
+            const gameState = session.gameInstance.makeMove(dto.row, dto.col);
+            const connections = session.players.map((player) => player.id);
+
+            if (gameState.status === 'win') {
+                const winnerSocket = this.server.to(gameState.currentPlayer.id);
+                const loserSocket = this.server.to(
+                    gameState.players.find(
+                        (player) => player.id !== gameState.currentPlayer.id,
+                    ).id,
+                );
+
+                winnerSocket.emit('gameState', gameState);
+                loserSocket.emit('gameState', { ...gameState, status: 'lose' });
+            } else {
+                for (const connection of connections) {
+                    const gameStateResponse = {
+                        ...gameState,
+                        players: gameState.players.filter(
+                            (player) => player.id == connection,
+                        ),
+                    };
+
+                    this.server
+                        .to(connection)
+                        .emit('gameState', gameStateResponse);
+                }
+            }
+        }
+
+        if (session.gameInstance instanceof PokerGame) {
+        }
     }
 
     @SubscribeMessage('getState')
@@ -121,6 +157,24 @@ export class GamePlatformGateway
             for (const connection of connections) {
                 this.server.to(connection).emit('gameState', gameState);
             }
+        }
+
+        if (session.gameInstance instanceof SeaBattleGame) {
+            const gameState = session.gameInstance.startGame();
+
+            for (const connection of connections) {
+                const gameStateResponse = {
+                    ...gameState,
+                    players: gameState.players.filter(
+                        (player) => player.id == connection,
+                    ),
+                };
+
+                this.server.to(connection).emit('gameState', gameStateResponse);
+            }
+        }
+
+        if (session.gameInstance instanceof PokerGame) {
         }
     }
 

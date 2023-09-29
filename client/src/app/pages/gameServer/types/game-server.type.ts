@@ -1,6 +1,8 @@
 import { GameTypesEnums } from '@config/types/game/gameTypesEnums';
 
 export type Symbols = 'cross' | 'toe';
+export type BoardT = ('S' | 'H' | 'M' | '~')[][];
+
 export type SessionStatus = 'waiting' | 'in-progress' | 'finished';
 export type GameStatus = 'playing' | 'win' | 'lose' | 'draw';
 export type Move = {
@@ -11,7 +13,12 @@ export type Move = {
 export type Player = {
     id: string;
     username: string;
+    rivalName?: string;
     played?: Symbols;
+    board?: BoardT;
+    movesMyBoardPlayer?: BoardT;
+    movesRivalBoardPlayer?: BoardT;
+    availableMoves?: boolean[][];
 };
 
 export interface GameModelResponse {
