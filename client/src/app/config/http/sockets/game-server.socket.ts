@@ -10,7 +10,6 @@ export class GameServerSocket extends Socket {
             options: {
                 autoConnect: false,
                 withCredentials: false,
-
             },
         });
     }
