@@ -20,7 +20,7 @@ import appConfig from '../../config/app/appConfig';
 @WebSocketGateway({
     namespace: 'game-platform',
     cors: {
-        origin: '*',
+        origin: 'https://itransition-7.netlify.app',
         credentials: true,
     },
 })
