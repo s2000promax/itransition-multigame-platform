@@ -29,18 +29,12 @@ export class GameServerComponent implements OnInit, OnDestroy {
 
     onCreateGame(gameType: GameTypesEnums) {
         this.gameServerService.onCreateSession(gameType);
-        return this.router.navigate([
-            RoutesEnums.GAME_SERVER,
-            RoutesEnums.TIC_TAC_TOE,
-        ]);
+        return this.router.navigate([RoutesEnums.GAME_SERVER, gameType]);
     }
 
-    onJoinGame(sessionId: string) {
-        this.gameServerService.onJoinSession(sessionId);
-        return this.router.navigate([
-            RoutesEnums.GAME_SERVER,
-            RoutesEnums.TIC_TAC_TOE,
-        ]);
+    onJoinGame(game: GameModelResponse) {
+        this.gameServerService.onJoinSession(game.sessionId);
+        return this.router.navigate([RoutesEnums.GAME_SERVER, game.gameName]);
     }
 
     onLeaveServer() {
