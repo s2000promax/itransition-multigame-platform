@@ -4,7 +4,7 @@ import appConfig from './config/app/appConfig';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-
+    /*
     app.enableCors({
         allowedHeaders: [
             'content-type',
@@ -16,6 +16,8 @@ async function bootstrap() {
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
         credentials: true,
     });
+
+ */
 
     const port = appConfig().port;
 
