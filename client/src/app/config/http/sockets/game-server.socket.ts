@@ -10,10 +10,6 @@ export class GameServerSocket extends Socket {
             options: {
                 autoConnect: false,
                 withCredentials: true,
-                extraHeaders: {
-                    'Access-Control-Allow-Origin':
-                        'https://itransition-mgame-server.vercel.app',
-                },
             },
         });
     }
