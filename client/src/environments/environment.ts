@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://itransition-mgame-server.vercel.app/api',
+    apiUrl: 'http://95.111.247.254/api',
     gameServerSocketUrl:
-        'https://itransition-mgame-server.vercel.app/game-platform',
+        'http://95.111.247.254/game-platform',
 };
