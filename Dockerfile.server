@@ -3,5 +3,5 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY server ./server
-EXPOSE 3000
+EXPOSE 3011
 CMD ["npm", "run", "start", "--prefix", "server"]
