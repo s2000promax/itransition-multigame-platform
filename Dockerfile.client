@@ -7,8 +7,10 @@ RUN npm install
 # Установка Angular CLI
 RUN npm install -g @angular/cli
 
+# Копирование и сборка Angular приложения
 COPY client ./client
-RUN ng build --prefix client --prod
+WORKDIR /app/client
+RUN ng build --prod
 
 FROM nginx:alpine
 COPY --from=angular-build /app/client/dist/client /usr/share/nginx/html
