@@ -6,7 +6,7 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
     const port = process.env.VERCEL_PORT || 3011;
-    console.log(port)
+    console.log(port);
     await app.listen(port);
 }
 
