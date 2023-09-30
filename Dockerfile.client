@@ -1,15 +1,17 @@
-# Компиляция Angular приложения
 FROM node:16 AS angular-build
+
 WORKDIR /app
+
 COPY package.json package-lock.json ./
 RUN npm install
 
-# Установка Angular CLI
 RUN npm install -g @angular/cli
 
-# Копирование и сборка Angular приложения
 COPY client ./client
 WORKDIR /app/client
+RUN npm install
+
+# Собираем проект
 RUN ng build --prod
 
 FROM nginx:alpine
