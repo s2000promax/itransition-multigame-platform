@@ -3,8 +3,12 @@ FROM node:16 AS angular-build
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
+
+# Установка Angular CLI
+RUN npm install -g @angular/cli
+
 COPY client ./client
-RUN npm run build --prefix client -- --prod
+RUN ng build --prefix client --prod
 
 FROM nginx:alpine
 COPY --from=angular-build /app/client/dist/client /usr/share/nginx/html
