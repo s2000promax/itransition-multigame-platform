@@ -11,8 +11,7 @@ COPY client ./client
 WORKDIR /app/client
 RUN npm install
 
-# Собираем проект
-RUN ng build --prod
+RUN ng build --configuration production
 
 FROM nginx:alpine
 COPY --from=angular-build /app/client/dist/client /usr/share/nginx/html
