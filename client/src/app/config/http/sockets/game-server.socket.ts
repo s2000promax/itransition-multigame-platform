@@ -9,7 +9,7 @@ export class GameServerSocket extends Socket {
             url: environment.gameServerSocketUrl,
             options: {
                 autoConnect: false,
-                withCredentials: true,
+                withCredentials: false,
             },
         });
     }

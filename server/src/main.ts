@@ -5,15 +5,8 @@ import appConfig from './config/app/appConfig';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
 
-    app.enableCors({
-        allowedHeaders: ['content-type', 'Authorization', 'Accept'],
-        origin: ['http://localhost:4200', 'http://95.111.247.254'],
-        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
-        credentials: true,
-    });
-
-    const port = 3011;
-
+    const port = process.env.VERCEL_PORT || 3011;
+    console.log(port)
     await app.listen(port);
 }
 

@@ -20,10 +20,8 @@ import appConfig from '../../config/app/appConfig';
 @WebSocketGateway({
     namespace: 'game-platform',
     cors: {
-        origin: 'http://95.111.247.254',
-        credentials: true,
-        methods: ['GET', 'OPTIONS'],
-        allowedHeaders: ['Access-Control-Allow-Origin'],
+        origin: '*',
+        credentials: false,
     },
 })
 export class GamePlatformGateway
